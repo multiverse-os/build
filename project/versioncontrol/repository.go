@@ -1,33 +1,14 @@
-package main
-
-import "time"
-
-type VersionControl int
-
-const (
-	Git VersionControl = iota
-	Mercurial
-	SVN
-	Fossil
-)
-
-type Commit struct {
-	CreatedAt  time.Time
-	Hash       string
-	Message    string
-	Developers []Developer
-	Size       int
-	Files      []File
-}
+package versioncontrol
 
 type Repository struct {
-	Name       string
-	Developers []Developer
-	Type       VersionControl
-	URL        string
-	Branch     string
-	LastCommit Commit
-	Files      []SourceFile
+	Name         string
+	URL          string
+	Protocol     Protocol
+	Contributors []Contributor
+	Branch       string
+	Branches     []string
+	Commits      []Commit
+	Files        []File
 }
 
 type RepositoryHandler interface {
@@ -35,7 +16,6 @@ type RepositoryHandler interface {
 	Ignore(path string) error
 	Add(path string) error
 	Remove(path string) error
-	Branch(name string) error
 }
 
 // Since add all changes to the repository automatically, save does the commit and push commands
@@ -55,6 +35,3 @@ func (self *Repository) Add(path string) error { return nil }
 
 // Remove file from project and rebase to remove the file from all versions
 func (self *Repository) Remove(path string) error { return nil }
-
-// Switches to defined branch
-func (self *Repository) Branch(path string) error { return nil }

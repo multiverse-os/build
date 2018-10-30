@@ -1,27 +1,33 @@
-package main
+package build
 
 import (
-	"fmt"
-	"log"
-	"time"
+	"errors"
+	"os"
 
+	docs "github.com/multiverse-os/build/project/docs"
+	source "github.com/multiverse-os/build/project/source"
+	versioncontrol "github.com/multiverse-os/build/project/versioncontrol"
+	volunteer "github.com/multiverse-os/build/project/volunteer"
+	log "github.com/multiverse-os/log"
 	watch "github.com/multiverse-os/os/file/watch"
 )
 
 type Project struct {
-	Name           string
-	URL            string
-	RootKey        Keypair
-	Path           string
-	language       string
-	builds         []Build
-	versionControl VersionControl
-	repositories   []Repository
-	developers     Developer
-	sourceFiles    []SourceFile
-	binaries       []Binary
-	documentation  Documentation
-	subprojects    []Subproject
+	Name          string
+	Path          string
+	Locale        string
+	Language      source.ProgrammingLanguage
+	Documentation docs.Documentation
+	Developers    []volunteer.Developer
+	Files         []os.FileInfo
+	Git           versioncontrol.Repository
+	Builds        []Build
+	FileHooks     map[string]*Action
+}
+
+type Action struct {
+	Name     string
+	Function func(event *watch.Event)
 }
 
 type ProjectHandler interface {
@@ -34,35 +40,13 @@ type ProjectHandler interface {
 
 func New(project Project) Project {
 	// TODO: Use this to validate, transform, and test things
-	return project
-}
-
-func (self *Project) Watch() {
-	w := watch.New()
-	w.RateLimit(1)
-
-	go func() {
-		for {
-			select {
-			case event := <-w.Events:
-				bash(`go build ` + project.Path)
-			case err := <-w.Errors:
-				log.Fatalln(err)
-			case <-w.Shutdown:
-				return
-			}
-		}
-	}()
-
-	if err := w.AddRecursive("."); err != nil {
-		log.Fatalln(err)
+	if project.Name == "" {
+		log.FatalError(errors.New("build project name must be specified"))
 	}
-
-	for path, file := range w.WatchedFiles() {
-		fmt.Printf("%s: %s\n", path, file.Name())
-	}
-
-	if err := w.Start(time.Millisecond * 100); err != nil {
-		log.Fatalln(err)
+	// Check if path is real
+	return Project{
+		Name: project.Name,
+		Path: project.Path,
+		Git:  project.Git,
 	}
 }

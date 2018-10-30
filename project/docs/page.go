@@ -1,9 +1,7 @@
-package doc
+package docs
 
 type Page struct {
 	title    string
-	authors  []Developer
-	assets   []string
 	sections []PageSection
 }
 

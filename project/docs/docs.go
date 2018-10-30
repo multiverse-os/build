@@ -1,21 +1,18 @@
-package doc
+package docs
 
-import "time"
+import (
+	"time"
+
+	faq "github.com/multiverse-os/build/project/docs/faq"
+	volunteer "github.com/multiverse-os/build/project/volunteer"
+)
 
 type Documentation struct {
-	tile         string
-	contributors []Editor
-	description  string
-	links        []Link
-	contacts     []Contact
-	faq          []Question
-	pages        []Page
-	issues       []Issues
-	bugs         []Bug
-	roadmap      []Feature
-	tasks        []Task
-	features     []Feature
-	template     func(string) string
+	Tile         string
+	Contributors []volunteer.Contributor
+	Description  string
+	FAQ          []faq.Question
+	Wiki         []Page
 }
 
 type Link struct {

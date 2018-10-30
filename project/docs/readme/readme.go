@@ -1,7 +1,8 @@
-package doc
+package readme
 
-type Readme struct {
+type File struct {
 	title        string
+	markdown     bool
 	contributors []Editor
 	description  string
 	sections     []PageSection
