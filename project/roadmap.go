@@ -1,21 +1,21 @@
 package project
 
 type Roadmap struct {
-	Features
-	Issues
+	Feature []Feature
+	Issue   []Issue
 }
 
 type MajorUpdate struct {
 	Codename string
 	Version
-	Features
-	Issues
-	Bugs
+	Feature []Feature
+	Issue   []Issue
+	Bug     []Bug
 }
 
 type MinorUpdate struct {
 	Version
-	Features
-	Issues
-	Bugs
+	Features []Feature
+	Issues   []Issue
+	Bug      []Bug
 }

@@ -1,10 +1,9 @@
 package project
 
-type Features []Feature
-
 type Feature struct {
-	Subject   string
+	Name      string
 	Body      string
 	Author    string
 	Completed bool
 }
+type Features []Feature

@@ -3,7 +3,7 @@ package docs
 import (
 	"time"
 
-	faq "github.com/multiverse-os/build/project/docs/faq"
+	faq "github.com/multiverse-os/build/project/documentation/faq"
 	volunteer "github.com/multiverse-os/build/project/volunteer"
 )
 

@@ -4,12 +4,12 @@ import (
 	"errors"
 	"os"
 
-	docs "github.com/multiverse-os/build/project/docs"
+	docs "github.com/multiverse-os/build/project/documentation"
 	source "github.com/multiverse-os/build/project/source"
 	versioncontrol "github.com/multiverse-os/build/project/versioncontrol"
 	volunteer "github.com/multiverse-os/build/project/volunteer"
 	log "github.com/multiverse-os/log"
-	watch "github.com/multiverse-os/os/file/watch"
+	watch "github.com/multiverse-os/os/fs/watch"
 )
 
 type Project struct {

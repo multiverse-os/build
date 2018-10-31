@@ -1,4 +1,4 @@
-package issues
+package project
 
 type Issues []Issue
 

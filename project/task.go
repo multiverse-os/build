@@ -4,8 +4,8 @@ type TaskType int
 type TaskStage int
 
 const (
-	Bug TaskType = iota
-	Feature
+	BugTask TaskType = iota
+	FeatureTask
 )
 
 const (
@@ -17,6 +17,6 @@ type Task struct {
 	Type        TaskType
 	Stage       TaskStage
 	Priority    Priority
-	Title       string
+	Name        string
 	Description string
 }
